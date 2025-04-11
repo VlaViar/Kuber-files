@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia-rs-matchexpressions
+spec:
+  replicas: 5
+  selector:
+    matchExpressions:
+    - key: app
+      operator: NotIn
+      values:
+      - kubia-not-rc
+  template:
+    metadata:
+      name: kubia-vlaviar
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - name: kubia
+        image: vlaviar/kubia
+        ports:
+        - containerPort: 80
+          protocol: TCP

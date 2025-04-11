@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-kubia-2
+spec:
+  tls:
+  - hosts:
+    - kubia-2.local
+    - kubia.local
+    - job.local
+    secretName: tls-secret
+  rules:
+  - host: kubia-2.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kubia-2-svc
+            port:
+              number: 80
+  - host: kubia.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vlaviar-loadbalancer-svc
+            port:
+              number: 80
+  - host: job.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: job-2-svc
+            port:
+              number: 80

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: test-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: ssd
+  template:
+    metadata:
+      name: test-ssd
+      labels:
+        app: ssd
+    spec:
+      nodeSelector:
+        disk: ssd
+      containers:
+      - name: ssd-test-con
+        image: luksa/ssd-monitor

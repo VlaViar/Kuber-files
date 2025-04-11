@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vlaviar-loadbalancer-svc
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: kubia

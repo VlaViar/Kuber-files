@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata:
+  name: vlaviar-ingress
+spec:
+  rules:
+  - host: vlaviar-kuber.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vlaviar-loadbalancer-svc
+            port:
+              number: 80

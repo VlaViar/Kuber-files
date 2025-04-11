@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia-rc-2
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - kubia-2
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia-2
+    spec:
+      containers:
+      - name: kubia
+        image: luksa/kubia
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          failureThreshold: 3
+          timeoutSeconds: 1

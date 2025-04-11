@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-manual-2
+  namespace: default
+  labels:
+    env: default
+    app: kubia
+spec:
+  nodeSelector:
+    gpu: "false"
+  containers:
+  - image: vlaviar/kubia
+    name: kubia
+    ports:
+    - containerPort: 8080
+      protocol: TCP

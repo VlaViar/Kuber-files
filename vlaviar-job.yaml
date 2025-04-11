@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vlaviar-job-2
+spec:
+  completions: 6
+  parallelism: 2
+  template:
+    metadata:
+      name: vlaviar-pod-job-2
+      labels:
+        app: vlaviar-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: vlaviar-job
+        image: vlaviar/job-vlaviar:latest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          failureThreshold: 3
+          periodSeconds: 30
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /work 

@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-vlaviar
+spec:
+  schedule: "0, 10, 20, 30, 40, 50 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: cronjob-po
+          labels:
+            app: job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: job
+            image: luksa/batch-job
