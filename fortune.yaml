@@ -1,11 +1,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: fortune
+  name: fortune-10s
 spec:
   containers:
-  - image: luksa/fortune
+  - image: vlaviar/fortune:args
     name: html-generator
+    env:
+    - name: INTEL
+      value: "1"
+    - name: INTERVAL
+      value: "$(INTEL)'0'"
     volumeMounts:
     - name: html
       mountPath: /var/htdocs

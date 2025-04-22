@@ -6,7 +6,6 @@ spec:
   tls:
   - hosts:
     - kubia-2.local
-    - kubia.local
     - job.local
     secretName: tls-secret
   rules:
@@ -18,16 +17,6 @@ spec:
         backend:
           service:
             name: kubia-2-svc
-            port:
-              number: 80
-  - host: kubia.local
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: vlaviar-loadbalancer-svc
             port:
               number: 80
   - host: job.local

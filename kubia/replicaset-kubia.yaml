@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kubia
+  labels:
+    app: kubia
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - kubia
+  replicas: 6
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      nodeSelector:
+        gpu: "false"
+      containers:
+      - image: vlaviar/kubia:latest
+        name: kubia
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          failureThreshold: 3
+          timeoutSeconds: 1
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /
