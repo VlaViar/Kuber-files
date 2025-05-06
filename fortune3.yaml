@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fortune-30s
+  labels:
+    app: fortune
+spec:
+  containers:
+  - image: vlaviar/fortune:args
+    name: fortune
+    env:
+    - name: INTERVAL
+      valueFrom:
+        configMapKeyRef:
+          name: configmap-fortune 
+          key: sleep-interval
+    args: ["30"]
